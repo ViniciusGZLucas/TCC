@@ -17,13 +17,13 @@ namespace CrossCutting.Services.TokenService
             {
                 Subject = new ClaimsIdentity(new Claim[]
                 {
-                    new Claim("IsAdmin", populateToken.Admin.ToString()),
+                    new Claim(TokenClaim.IsAdmin, populateToken.Admin.ToString()),
                 }),
                 Expires = DateTime.UtcNow.AddDays(1),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
             };
 
-            var roles = populateToken.Roles.Where(role => !string.IsNullOrEmpty(role)).Select(role => new Claim("CustomClaimValidation", role));
+            var roles = populateToken.Roles.Where(role => !string.IsNullOrEmpty(role)).Select(role => new Claim(TokenClaim.Roles, role));
 
             tokenDescriptor.Subject.AddClaims(roles);
 
