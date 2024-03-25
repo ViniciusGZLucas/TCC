@@ -1,3 +1,4 @@
+using CrossCutting.Services.TokenService;
 using TCC.StartupConfigurations;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -7,7 +8,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddEndpointsApiExplorer();
 
 builder.Services.ConfigureSwagger();
-builder.Services.ConfigureToken("43efe49b9dfe8fdcc7ffb4bb42e3437ffbe113298348ec7f00a8b5159b3c28a5");
+builder.Services.ConfigureToken(TokenService.Secret);
 builder.Services.ConfigureCORS("ICT");
 
 builder.Services.AddControllers();
