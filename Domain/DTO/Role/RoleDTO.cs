@@ -1,8 +1,11 @@
-﻿namespace Domain.Entry
+﻿using Domain.DTO.Base;
+using Domain.Entry;
+
+namespace Domain.DTO
 {
-    public class Role : BaseEntry
+    public class RoleDTO : BaseDTO
     {
-        public Role(string name, bool isAdmin)
+        public RoleDTO(string name, bool isAdmin)
         {
             Name = name;
             IsAdmin = isAdmin;
@@ -13,7 +16,7 @@
 
         #region VirtualProperties
         #region External
-        public virtual List<UserRole> ListUserRole { get; set; }
+        public List<UserRole>? ListUserRole { get; set; }
         #endregion
         #endregion
     }

@@ -1,33 +1,41 @@
+using BusinessRule;
 using CrossCutting.Services.TokenService;
+using Domain.Interface;
+using Domain.Interface.BusinessRule;
+using Domain.Interface.Repository;
+using Infrastructure;
 using Infrastructure.Context;
+using Infrastructure.Repository;
 using Microsoft.EntityFrameworkCore;
 using TCC.StartupConfigurations;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 
 builder.Services.ConfigureSwagger();
 builder.Services.ConfigureToken(TokenService.Secret);
 builder.Services.ConfigureCORS("ICT");
 
-builder.Services.AddControllers();
-builder.Services.AddDbContext<IctDbContext>(option =>
-{
-    option.UseMySql(builder.Configuration.GetConnectionString(builder.Configuration.GetSection("ConnectionString").Value), ServerVersion.AutoDetect(builder.Configuration.GetSection("ConnectionString").Value));
-});
+builder.Services.AddEntityFrameworkMySql();
+
+var connectionString = builder.Configuration.GetSection("ConnectionString").Value;
+
+builder.Services.AddDbContext<IctDbContext>(option => option.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString)));
+
+builder.Services.AddTransient<IUnitOfWork, UnitOfWork>();
+
+builder.Services.AddTransient<IUserRepository, UserRepository>();
+builder.Services.AddTransient<IRoleRepository, RoleRepository>();
+builder.Services.AddTransient<IUserRoleRepository, UserRoleRepository>();
+
+builder.Services.AddTransient<IUserBusinessRule, UserBusinessRule>();
+builder.Services.AddTransient<IRoleBusinessRule, RoleBusinessRule>();
+builder.Services.AddTransient<IUserRoleBusinessRule, UserRoleBusinessRule>();
 
 builder.Services.AddControllers();
 
 var app = builder.Build();
-
-using (var scope = app.Services.CreateScope())
-{
-    var dbContext = scope.ServiceProvider.GetRequiredService<IctDbContext>();
-    // use context
-}
 
 app.UseSwagger();
 app.UseSwaggerUI();

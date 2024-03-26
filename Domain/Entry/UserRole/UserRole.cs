@@ -10,8 +10,8 @@ namespace Domain.Entry
             RoleId = roleId;
         }
 
-        public long UserId { get; private set; }
-        public long RoleId { get; private set; }
+        public long UserId { get; set; }
+        public long RoleId { get; set; }
 
         #region NotMapped
         [NotMapped]
@@ -24,8 +24,8 @@ namespace Domain.Entry
 
         #region VirtualProperties
         #region Internal
-        public virtual User User { get; private set; }
-        public virtual Role Role { get; private set; }
+        public virtual User User { get; set; }
+        public virtual Role Role { get; set; }
         #endregion
         #endregion
     }

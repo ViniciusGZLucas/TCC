@@ -17,7 +17,7 @@ namespace TCC.StartupConfigurations
 
                 c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
                 {
-                    Description = @"Autenticação por token JWT. Entre com o valor no formato: Bearer SEU_TOKEN",
+                    Description = @"Bearer <TOKEN>",
                     Name = "Authorization",
                     In = ParameterLocation.Header,
                     Type = SecuritySchemeType.ApiKey,
