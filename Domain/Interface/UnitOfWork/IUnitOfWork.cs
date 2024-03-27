@@ -4,6 +4,7 @@
     {
         void Commit();
         void Rollback();
+        void SaveChanges();
         void StartTransaction();
     }
 }

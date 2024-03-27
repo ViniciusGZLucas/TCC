@@ -16,6 +16,8 @@ namespace BusinessRule.Base
 
         public TDTO Create(TViewModel viewModel)
         {
+            ViewModelValidationProcess(viewModel);
+
             var viewModelProperties = typeof(TViewModel).GetProperties();
             var viewModelPropertiesName = viewModelProperties.Select(x => x.Name).ToList();
             var dtoProperties = typeof(TDTO).GetProperties().Where(x => viewModelPropertiesName.Contains(x.Name)).ToList();
@@ -37,10 +39,30 @@ namespace BusinessRule.Base
                 dtosProperty.SetValue(newDTO, viewModelProperty.GetValue(viewModel));
             }
 
-            var method = typeof(TRepository).UnderlyingSystemType.GetInterfaces().FirstOrDefault()?.GetMethods().Where(x => x.Name == "Create" && !x.ReturnType.IsGenericTypeDefinition).FirstOrDefault();
-            method.Invoke(_repository, new object[] { newEntry });
+            DTOValidationProcess((TDTO)newDTO);
+
+            _unitOfWork.StartTransaction();
+
+            try
+            {
+                var method = typeof(TRepository).UnderlyingSystemType.GetInterfaces().FirstOrDefault()?.GetMethods().Where(x => x.Name == "Create" && !x.ReturnType.IsGenericTypeDefinition).FirstOrDefault();
+                method.Invoke(_repository, new object[] { newEntry });
+
+                _unitOfWork.SaveChanges();
+
+                _unitOfWork.Commit();
+            }
+            catch (Exception ex)
+            {
+                _unitOfWork.Rollback();
+                throw new Exception(ex.Message);
+            }
 
             return (TDTO)newDTO;
         }
+
+        public abstract void DTOValidationProcess(TDTO dto);
+
+        public abstract void ViewModelValidationProcess(TViewModel viewModel);
     }
 }

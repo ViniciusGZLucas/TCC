@@ -17,6 +17,11 @@ namespace Infrastructure
             _context.Database.BeginTransaction();
         }
 
+        public void SaveChanges()
+        {
+            _context.SaveChanges();
+        }
+
         public void Commit()
         {
             _context.Database.CommitTransaction();

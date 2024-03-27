@@ -15,25 +15,17 @@ namespace BusinessRule
 
         public UserDTO Create(UserViewModel viewModel)
         {
-            _unitOfWork.StartTransaction();
-
-            UserDTO dto = default;
-
-            try
-            {
-                //Validação Via ViewModel
-
-                base.Create(viewModel);
-
-                //Validação Via DTO
-            }
-            catch (Exception ex)
-            {
-                _unitOfWork.Rollback();
-                throw new Exception(ex.Message);
-            }
+            var dto = base.Create(viewModel);
 
             return dto;
+        }
+
+        public override void ViewModelValidationProcess(UserViewModel viewModel)
+        {
+        }
+
+        public override void DTOValidationProcess(UserDTO dto)
+        {
         }
     }
 }

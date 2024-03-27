@@ -12,5 +12,15 @@ namespace BusinessRule
         public RoleBusinessRule(IRoleRepository repository, IUnitOfWork unitOfWork) : base(repository, unitOfWork)
         {
         }
+
+        public override void DTOValidationProcess(RoleDTO dto)
+        {
+            
+        }
+
+        public override void ViewModelValidationProcess(RoleViewModel viewModel)
+        {
+            
+        }
     }
 }

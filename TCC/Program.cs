@@ -28,10 +28,12 @@ builder.Services.AddTransient<IUnitOfWork, UnitOfWork>();
 builder.Services.AddTransient<IUserRepository, UserRepository>();
 builder.Services.AddTransient<IRoleRepository, RoleRepository>();
 builder.Services.AddTransient<IUserRoleRepository, UserRoleRepository>();
+builder.Services.AddTransient<IArticleRepository, ArticleRepository>();
 
 builder.Services.AddTransient<IUserBusinessRule, UserBusinessRule>();
 builder.Services.AddTransient<IRoleBusinessRule, RoleBusinessRule>();
 builder.Services.AddTransient<IUserRoleBusinessRule, UserRoleBusinessRule>();
+builder.Services.AddTransient<IArticleBusinessRule, ArticleBusinessRule>();
 
 builder.Services.AddControllers();
 
