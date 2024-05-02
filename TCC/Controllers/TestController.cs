@@ -1,4 +1,5 @@
-﻿using CrossCutting.Services.TokenService;
+﻿using CrossCutting.Services.EmailService;
+using CrossCutting.Services.TokenService;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -22,6 +23,15 @@ namespace TCC.Controllers
             var populateToken = new PopulateToken(true, new List<string> { "programador", "admin" });
 
             return Ok(TokenService.GenerateToken(populateToken));
+        }
+
+        [AllowAnonymous]
+        [HttpPost("SendTestMail")]
+        public IActionResult SendTestMail()
+        {
+            EmailService.Test();
+
+            return Ok(true);
         }
     }
 }
