@@ -37,6 +37,9 @@ namespace Infrastructure.Map
             builder.Property(x => x.Password)
                 .HasMaxLength(70)
                 .IsRequired();
+
+            builder.Property(x => x.BindingDate)
+                .IsRequired();
         }
     }
 }

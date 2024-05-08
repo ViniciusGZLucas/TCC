@@ -7,8 +7,8 @@ namespace Infrastructure.Repository.Base
 {
     public abstract class BaseRepository<TEntry> : IBaseRepository<TEntry> where TEntry : BaseEntry
     {
-        private readonly DbSet<TEntry> _dbSet;
-        private readonly IctDbContext _context;
+        protected readonly DbSet<TEntry> _dbSet;
+        protected readonly IctDbContext _context;
 
         public BaseRepository(IctDbContext context)
         {

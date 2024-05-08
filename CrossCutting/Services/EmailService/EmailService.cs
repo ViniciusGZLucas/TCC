@@ -6,7 +6,7 @@ namespace CrossCutting.Services.EmailService
 {
     public class EmailService
     {
-        public async static void Test()
+        public async static Task<bool> Test()
         {
             try
             {
@@ -29,7 +29,8 @@ namespace CrossCutting.Services.EmailService
                                               587, false);
 
                     await client.AuthenticateAsync("ict47194@gmail.com",
-                                                    "ictcps2024");
+                                                    "ictcps2024");//efnysgkignxrmpt//ictcps2024
+
                     await client.SendAsync(message);
                     await client.DisconnectAsync(true);
                 }
@@ -38,6 +39,8 @@ namespace CrossCutting.Services.EmailService
             {
                 throw new InvalidOperationException(e.Message);
             }
+
+            return true;
         }
     }
 }

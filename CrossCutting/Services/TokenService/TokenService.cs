@@ -17,6 +17,9 @@ namespace CrossCutting.Services.TokenService
             {
                 Subject = new ClaimsIdentity(new Claim[]
                 {
+                    new Claim(TokenClaim.Name, populateToken.Name),
+                    new Claim(TokenClaim.Email, populateToken.Email),
+                    new Claim(TokenClaim.PrivateEmail, populateToken.PrivateEmail),
                     new Claim(TokenClaim.IsAdmin, populateToken.Admin.ToString()),
                 }),
                 Expires = DateTime.UtcNow.AddDays(1),

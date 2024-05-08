@@ -17,19 +17,10 @@ namespace TCC.Controllers
         }
 
         [AllowAnonymous]
-        [HttpGet("GetToken")]
-        public IActionResult GetToken()
-        {
-            var populateToken = new PopulateToken(true, new List<string> { "programador", "admin" });
-
-            return Ok(TokenService.GenerateToken(populateToken));
-        }
-
-        [AllowAnonymous]
         [HttpPost("SendTestMail")]
-        public IActionResult SendTestMail()
+        public async Task<IActionResult> SendTestMail()
         {
-            EmailService.Test();
+            await EmailService.Test();
 
             return Ok(true);
         }
