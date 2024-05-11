@@ -8,7 +8,7 @@ namespace TCC.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class UserController : Controller
+    public class UserController : BaseController
     {
         public readonly IUserBusinessRule _userBusinessRule;
 
@@ -27,9 +27,9 @@ namespace TCC.Controllers
 
         [Authorize]
         [HttpPost("Create")]
-        public IActionResult Create(UserViewModel viewModel)
+        public IActionResult Create(InputCreateUserViewModel viewModel)
         {
-            var dto = _userBusinessRule.Create(viewModel);
+            var dto = _userBusinessRule.Create(_dataSession, viewModel);
 
             return Ok(dto);
         }

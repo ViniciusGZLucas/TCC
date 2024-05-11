@@ -17,6 +17,7 @@ namespace CrossCutting.Services.TokenService
             {
                 Subject = new ClaimsIdentity(new Claim[]
                 {
+                    new Claim(TokenClaim.Id, populateToken.Id.ToString()),
                     new Claim(TokenClaim.Name, populateToken.Name),
                     new Claim(TokenClaim.Email, populateToken.Email),
                     new Claim(TokenClaim.PrivateEmail, populateToken.PrivateEmail),

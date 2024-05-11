@@ -1,30 +1,24 @@
-﻿using Domain.Interface.BusinessRule;
-using BusinessRule.Base;
-using Domain.Interface.Repository;
+﻿using BusinessRule.Base;
+using CrossCutting.DataSession;
 using Domain.DTO;
-using Domain.ViewModel;
 using Domain.Interface;
+using Domain.Interface.BusinessRule;
+using Domain.Interface.Repository;
+using Domain.ViewModel;
 
 namespace BusinessRule
 {
-    public class ArticleBusinessRule : BaseBusinessRule<IArticleRepository, ArticleDTO, ArticleViewModel>, IArticleBusinessRule
+    public class ArticleBusinessRule : BaseBusinessRule<IArticleRepository, ArticleDTO, ArticleViewModel, object>, IArticleBusinessRule
     {
         public ArticleBusinessRule(IArticleRepository repository, IUnitOfWork unitOfWork) : base(repository, unitOfWork)
         {
-        }
-
-        public ArticleDTO Create(ArticleViewModel viewModel)
-        {
-            var dto = base.Create(viewModel);
-           
-            return dto;
         }
 
         public override void DTOValidationProcess(ArticleDTO dto)
         {
         }
 
-        public override void ViewModelValidationProcess(ArticleViewModel viewModel)
+        public override void ViewModelValidationProcess(object viewModel)
         {
         }
     }

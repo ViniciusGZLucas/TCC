@@ -40,6 +40,11 @@ namespace Infrastructure.Map
 
             builder.Property(x => x.BindingDate)
                 .IsRequired();
+
+            var defaultUser = new User("Admin", "admin@admin.com", "privateAdmin@email.com", "123456", DateTime.Now);
+            defaultUser.PopulateBaseProperties(1, DateTime.Now, 1, null, null, default, null);
+
+            builder.HasData(defaultUser);
         }
     }
 }

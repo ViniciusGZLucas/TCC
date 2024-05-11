@@ -1,13 +1,12 @@
-﻿using CrossCutting.Services.TokenService;
+﻿using CrossCutting.DataSession;
 using Domain.DTO;
-using Domain.ViewModel;
 using Domain.ViewModel.User;
 
 namespace Domain.Interface.BusinessRule
 {
     public interface IUserBusinessRule
     {
-        UserDTO Create(UserViewModel viewModel);
+        UserDTO Create(DataSession dataSession, InputCreateUserViewModel viewModel);
         UserTokenViewModel Login(string email, string password);
     }
 }

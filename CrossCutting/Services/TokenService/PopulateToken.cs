@@ -2,8 +2,9 @@
 {
     public class PopulateToken
     {
-        public PopulateToken(string name, string email, string privateEmail, bool admin, IList<string> roles)
+        public PopulateToken(long id, string name, string email, string privateEmail, bool admin, IList<string> roles)
         {
+            Id = id;
             Name = name;
             Email = email;
             PrivateEmail = privateEmail;
@@ -11,6 +12,7 @@
             Roles = roles;
         }
 
+        public long Id { get; set; }
         public string Name { get; set; }
         public string Email { get; set; }
         public string PrivateEmail { get; set; }

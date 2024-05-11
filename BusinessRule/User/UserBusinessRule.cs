@@ -1,4 +1,5 @@
 ﻿using BusinessRule.Base;
+using CrossCutting.DataSession;
 using CrossCutting.Services.TokenService;
 using Domain.DTO;
 using Domain.Interface;
@@ -9,20 +10,20 @@ using Domain.ViewModel.User;
 
 namespace BusinessRule
 {
-    public class UserBusinessRule : BaseBusinessRule<IUserRepository, UserDTO, UserViewModel>, IUserBusinessRule
+    public class UserBusinessRule : BaseBusinessRule<IUserRepository, UserDTO, UserViewModel, InputCreateUserViewModel>, IUserBusinessRule
     {
         public UserBusinessRule(IUserRepository repository, IUnitOfWork unitOfWork) : base(repository, unitOfWork)
         {
         }
 
-        public UserDTO Create(UserViewModel viewModel)
+        public UserDTO Create(DataSession dataSession, InputCreateUserViewModel viewModel)
         {
-            var dto = base.Create(viewModel);
+            var dto = base.Create(dataSession, viewModel);
 
             return dto;
         }
 
-        public override void ViewModelValidationProcess(UserViewModel viewModel)
+        public override void ViewModelValidationProcess(InputCreateUserViewModel viewModel)
         {
         }
 
@@ -39,7 +40,7 @@ namespace BusinessRule
 
             var roles = _repository.GetRolesByUser(user.Id);
 
-            var populateToken = new PopulateToken(user.Name, user.Email, user.PrivateEmail, roles?.Any(x => x.IsAdmin) ?? false, roles?.Select(x => x.Name).ToList());
+            var populateToken = new PopulateToken(user.Id, user.Name, user.Email, user.PrivateEmail, roles?.Any(x => x.IsAdmin) ?? false, roles?.Select(x => x.Name).ToList());
 
             var token = TokenService.GenerateToken(populateToken);
 

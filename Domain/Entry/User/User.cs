@@ -4,11 +4,13 @@
     {
         public User() { }
 
-        public User(string name, string email, string password)
+        public User(string name, string email, string privateEmail, string password, DateTime bindingDate)
         {
             Name = name;
             Email = email;
+            PrivateEmail = privateEmail;
             Password = password;
+            BindingDate = bindingDate;
         }
 
         public string Name { get; set; }

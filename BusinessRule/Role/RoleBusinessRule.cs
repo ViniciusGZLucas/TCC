@@ -7,7 +7,7 @@ using Domain.ViewModel;
 
 namespace BusinessRule
 {
-    public class RoleBusinessRule : BaseBusinessRule<IRoleRepository, RoleDTO, RoleViewModel>, IRoleBusinessRule 
+    public class RoleBusinessRule : BaseBusinessRule<IRoleRepository, RoleDTO, RoleViewModel, object>, IRoleBusinessRule 
     {
         public RoleBusinessRule(IRoleRepository repository, IUnitOfWork unitOfWork) : base(repository, unitOfWork)
         {
@@ -18,7 +18,7 @@ namespace BusinessRule
             
         }
 
-        public override void ViewModelValidationProcess(RoleViewModel viewModel)
+        public override void ViewModelValidationProcess(object viewModel)
         {
             
         }

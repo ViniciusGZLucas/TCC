@@ -1,9 +1,10 @@
-﻿using Domain.Interface;
+﻿using CrossCutting.DataSession;
+using Domain.Interface;
 using Domain.Interface.BusinessRule.Base;
 
 namespace BusinessRule.Base
 {
-    public abstract class BaseBusinessRule<TRepository, TDTO, TViewModel> : IBaseBusinessRule<TRepository, TDTO, TViewModel>
+    public abstract class BaseBusinessRule<TRepository, TDTO, TViewModel, TInputCreateViewModel> : IBaseBusinessRule<TRepository, TDTO, TViewModel, TInputCreateViewModel>
     {
         protected readonly TRepository _repository;
         protected readonly IUnitOfWork _unitOfWork;
@@ -14,11 +15,11 @@ namespace BusinessRule.Base
             _unitOfWork = unitOfWork;
         }
 
-        public TDTO Create(TViewModel viewModel)
+        public TDTO Create(DataSession dataSession, TInputCreateViewModel viewModel)
         {
             ViewModelValidationProcess(viewModel);
 
-            var viewModelProperties = typeof(TViewModel).GetProperties();
+            var viewModelProperties = typeof(TInputCreateViewModel).GetProperties();
             var viewModelPropertiesName = viewModelProperties.Select(x => x.Name).ToList();
             var dtoProperties = typeof(TDTO).GetProperties().Where(x => viewModelPropertiesName.Contains(x.Name)).ToList();
 
@@ -41,28 +42,38 @@ namespace BusinessRule.Base
 
             DTOValidationProcess((TDTO)newDTO);
 
+            SetCreationValues(dataSession, newEntry);
+
             _unitOfWork.StartTransaction();
 
             try
             {
                 var method = typeof(TRepository).UnderlyingSystemType.GetInterfaces().FirstOrDefault()?.GetMethods().Where(x => x.Name == "Create" && !x.ReturnType.IsGenericTypeDefinition).FirstOrDefault();
-                method.Invoke(_repository, new object[] { newEntry });
+                var response = method.Invoke(_repository, new object[] { newEntry });
 
                 _unitOfWork.SaveChanges();
 
                 _unitOfWork.Commit();
+
+                return (TDTO)newDTO;
             }
             catch (Exception ex)
             {
                 _unitOfWork.Rollback();
                 throw new Exception(ex.Message);
             }
+        }
 
-            return (TDTO)newDTO;
+        private void SetCreationValues(DataSession dataSession, object? newEntry)
+        {
+            var entryType = newEntry?.GetType();
+
+            entryType.GetProperty("CreationUserId")?.SetValue(newEntry, dataSession.Id);
+            entryType.GetProperty("CreationDate")?.SetValue(newEntry, DateTime.Now);
         }
 
         public abstract void DTOValidationProcess(TDTO dto);
 
-        public abstract void ViewModelValidationProcess(TViewModel viewModel);
+        public abstract void ViewModelValidationProcess(TInputCreateViewModel viewModel);
     }
 }
