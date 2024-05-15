@@ -11,16 +11,16 @@ namespace TCC.Controllers
     {
         protected DataSession _dataSession;
 
-        protected IActionResult ExecuteRequest<T>(Func<T> action)
+        public override void OnActionExecuted(ActionExecutedContext context)
         {
-            try
+            if(context.Exception != null)
             {
-                return Ok(action());
+                context.Result = BadRequest(context.Exception?.Message);
+
+                context.Exception = null;
             }
-            catch (Exception ex) 
-            {
-                return BadRequest(ex.Message);
-            }
+
+            base.OnActionExecuted(context);
         }
 
         public override void OnActionExecuting(ActionExecutingContext context)
