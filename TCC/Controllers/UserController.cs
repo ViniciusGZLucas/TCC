@@ -21,8 +21,7 @@ namespace TCC.Controllers
         [HttpPost("Login")]
         public IActionResult Login([FromBody] UserLoginViewModel userLoginViewModel)
         {
-            var populateToken = _userBusinessRule.Login(userLoginViewModel.Email, userLoginViewModel.Password);
-            return Ok(populateToken);
+            return ExecuteRequest(() => _userBusinessRule.Login(userLoginViewModel.Email, userLoginViewModel.Password));
         }
 
         [Authorize]

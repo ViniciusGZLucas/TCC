@@ -11,6 +11,18 @@ namespace TCC.Controllers
     {
         protected DataSession _dataSession;
 
+        protected IActionResult ExecuteRequest<T>(Func<T> action)
+        {
+            try
+            {
+                return Ok(action());
+            }
+            catch (Exception ex) 
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
         public override void OnActionExecuting(ActionExecutingContext context)
         {
             var token = Request.Headers.Authorization.FirstOrDefault()?.Replace("Bearer ", "");

@@ -20,9 +20,7 @@ namespace TCC.Controllers
         [HttpPost("Create")]
         public IActionResult Create(InputCreateArticleViewModel viewModel)
         {
-            var dto = _articleBusinessRule.Create(_dataSession, viewModel);
-
-            return Ok(dto);
+            return ExecuteRequest(() => _articleBusinessRule.Create(_dataSession, viewModel));
         }
     }
 }
