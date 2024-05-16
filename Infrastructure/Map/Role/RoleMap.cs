@@ -36,6 +36,11 @@ namespace Infrastructure.Map
 
             builder.Property(x => x.IsAdmin)
                 .IsRequired();
+
+            var role = new Role("Admin", true);
+            role.PopulateBaseProperties(1, DateTime.Now, 1, null, null, null, null);
+
+            builder.HasData(role);
         }
     }
 }

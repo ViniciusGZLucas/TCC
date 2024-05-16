@@ -32,6 +32,11 @@ namespace Infrastructure.Map
 
             builder.Property(x => x.RoleId)
                 .IsRequired();
+
+            var userRole = new UserRole(1, 1);
+            userRole.PopulateBaseProperties(1, DateTime.Now, 1, null, null, null, null);
+
+            builder.HasData(userRole);
         }
     }
 }
