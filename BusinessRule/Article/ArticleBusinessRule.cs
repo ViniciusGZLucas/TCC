@@ -30,5 +30,7 @@ namespace BusinessRule
         public override void ViewModelValidationProcess(InputCreateArticleViewModel viewModel)
         {
         }
+
+
     }
 }

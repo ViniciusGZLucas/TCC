@@ -22,7 +22,14 @@ namespace TCC.Controllers
         {
             var dto = _articleBusinessRule.Create(_dataSession, viewModel);
 
-            return Ok(dto);
+            return Ok(1);
+        }
+
+        [Authorize]
+        [HttpPost("LinkDocument")]
+        public IActionResult LinkDocument(InputLinkArticleDocumentViewModel viewModel)
+        {
+            return Ok();
         }
     }
 }
