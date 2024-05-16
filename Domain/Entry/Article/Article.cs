@@ -32,6 +32,9 @@
         public virtual User Advisor { get; set; }
         public virtual User CoAdvisor { get; set; }
         #endregion
+        #region External
+        public virtual List<ArticleDocument> ListArticleDocuments { get; set; }
+        #endregion
         #endregion
     }
 }

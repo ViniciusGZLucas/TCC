@@ -38,6 +38,11 @@
         public virtual List<Article> ListArticleAdvisor { get; set; }
         public virtual List<Article> ListArticleCoAdvisor { get; set; }
         #endregion
+
+        #region ArticleDocument
+        public virtual List<ArticleDocument> ListArticleDocumentCreationUser { get; set; }
+        public virtual List<ArticleDocument> ListArticleDocumentChangeUser { get; set; }
+        #endregion
         #endregion
         #endregion
     }

@@ -24,6 +24,7 @@ namespace Infrastructure
 
         public void Commit()
         {
+            _context.SaveChanges();
             _context.Database.CommitTransaction();
         }
 

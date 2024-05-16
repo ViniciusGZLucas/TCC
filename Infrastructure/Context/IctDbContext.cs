@@ -9,6 +9,8 @@ namespace Infrastructure.Context
         public DbSet<User> Users { get; set; }
         public DbSet<Role> Roles { get; set; }
         public DbSet<UserRole> UserRoles { get; set; }
+        public DbSet<Article> Articles { get; set; }
+        public DbSet<ArticleDocument> ArticleDocuments { get; set; }
 
         public IctDbContext(DbContextOptions<IctDbContext> options)
             : base(options)

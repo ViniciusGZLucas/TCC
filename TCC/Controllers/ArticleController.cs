@@ -16,7 +16,7 @@ namespace TCC.Controllers
             _articleBusinessRule = articleBusinessRule;
         }
 
-        [Authorize]
+        [AllowAnonymous]
         [HttpPost("Create")]
         public IActionResult Create([FromBody] InputCreateArticleViewModel viewModel)
         {
@@ -25,7 +25,7 @@ namespace TCC.Controllers
             return Ok(dto.Id);
         }
 
-        [Authorize]
+        [AllowAnonymous]
         [HttpPost("LinkDocument")]
         public IActionResult LinkDocument([FromForm] InputLinkArticleDocumentViewModel viewModel)
         {
