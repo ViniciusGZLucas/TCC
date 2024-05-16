@@ -55,6 +55,10 @@ namespace BusinessRule.Base
 
                 _unitOfWork.Commit();
 
+                var id = newEntry?.GetType().GetProperty("Id")?.GetValue(newEntry);
+
+                newDTO?.GetType().GetProperty("Id")?.SetValue(newDTO, id);
+
                 return (TDTO)newDTO;
             }
             catch (Exception ex)

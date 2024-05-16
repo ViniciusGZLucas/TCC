@@ -7,5 +7,6 @@ namespace Domain.Interface.BusinessRule
     public interface IArticleBusinessRule
     {
         ArticleDTO Create(DataSession dataSession, InputCreateArticleViewModel viewModel);
+        void LinkDocument(DataSession dataSession, InputLinkArticleDocumentViewModel viewModel);
     }
 }

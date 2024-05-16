@@ -30,5 +30,10 @@ namespace BusinessRule
         public override void ViewModelValidationProcess(InputCreateArticleViewModel viewModel)
         {
         }
+
+        public void LinkDocument(DataSession dataSession, InputLinkArticleDocumentViewModel viewModel)
+        {
+
+        }
     }
 }

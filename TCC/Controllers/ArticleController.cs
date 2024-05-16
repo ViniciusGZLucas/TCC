@@ -18,11 +18,20 @@ namespace TCC.Controllers
 
         [Authorize]
         [HttpPost("Create")]
-        public IActionResult Create(InputCreateArticleViewModel viewModel)
+        public IActionResult Create([FromBody] InputCreateArticleViewModel viewModel)
         {
             var dto = _articleBusinessRule.Create(_dataSession, viewModel);
 
-            return Ok(dto);
+            return Ok(dto.Id);
+        }
+
+        [Authorize]
+        [HttpPost("LinkDocument")]
+        public IActionResult LinkDocument([FromForm] InputLinkArticleDocumentViewModel viewModel)
+        {
+            _articleBusinessRule.LinkDocument(_dataSession, viewModel);
+
+            return Ok();
         }
     }
 }
