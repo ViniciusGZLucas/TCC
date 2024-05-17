@@ -11,6 +11,7 @@ namespace Infrastructure.Context
         public DbSet<UserRole> UserRoles { get; set; }
         public DbSet<Article> Articles { get; set; }
         public DbSet<ArticleDocument> ArticleDocuments { get; set; }
+        public DbSet<ArticleSchedule> ArticleSchedules { get; set; }
 
         public IctDbContext(DbContextOptions<IctDbContext> options)
             : base(options)

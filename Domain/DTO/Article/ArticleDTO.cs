@@ -7,7 +7,7 @@ namespace Domain.DTO
     {
         public ArticleDTO() { }
 
-        public ArticleDTO(string title, string description, string advisorCurriculumLink, string coAdvisorCurriculumLink, string file, long authorId, long advisorId, long coAdvisorId, User author, User advisor, User coAdvisor, DateTime devolutionDate)
+        public ArticleDTO(string title, string description, string advisorCurriculumLink, string coAdvisorCurriculumLink, string file, long authorId, long advisorId, long coAdvisorId, UserDTO author, UserDTO advisor, UserDTO coAdvisor, DateTime devolutionDate)
         {
             Title = title;
             Description = description;
@@ -35,9 +35,9 @@ namespace Domain.DTO
 
         #region VirtualPropeties
         #region Internal
-        public User Author { get; set; }
-        public User Advisor { get; set; }
-        public User CoAdvisor { get; set; }
+        public UserDTO Author { get; set; }
+        public UserDTO Advisor { get; set; }
+        public UserDTO CoAdvisor { get; set; }
         #endregion
         #endregion
     }

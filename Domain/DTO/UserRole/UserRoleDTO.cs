@@ -1,5 +1,4 @@
 ﻿using Domain.DTO.Base;
-using Domain.Entry;
 
 namespace Domain.DTO
 {
@@ -10,8 +9,8 @@ namespace Domain.DTO
 
         #region VirtualProperties
         #region Internal
-        public User User { get; set; }
-        public Role Role { get; set; }
+        public UserDTO User { get; set; }
+        public RoleDTO Role { get; set; }
         #endregion
         #endregion
     }

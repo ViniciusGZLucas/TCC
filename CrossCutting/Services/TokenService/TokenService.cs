@@ -27,9 +27,9 @@ namespace CrossCutting.Services.TokenService
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
             };
 
-            var roles = populateToken.Roles.Where(role => !string.IsNullOrEmpty(role)).Select(role => new Claim(TokenClaim.Roles, role));
+            var roles = populateToken.Roles.Where(role => !string.IsNullOrEmpty(role)).ToList();
 
-            tokenDescriptor.Subject.AddClaims(roles);
+            tokenDescriptor.Subject.AddClaim(new Claim(TokenClaim.Roles, string.Join(',', roles)));
 
             var tokenWriter = tokenHandler.CreateToken(tokenDescriptor);
             string token = tokenHandler.WriteToken(tokenWriter);

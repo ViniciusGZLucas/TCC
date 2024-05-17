@@ -43,6 +43,10 @@
         public virtual List<ArticleDocument> ListArticleDocumentCreationUser { get; set; }
         public virtual List<ArticleDocument> ListArticleDocumentChangeUser { get; set; }
         #endregion
+
+        #region ArticleSchedule
+        public virtual List<ArticleSchedule> ListArticleScheduleCreationUser { get; set; }
+        #endregion
         #endregion
         #endregion
     }

@@ -38,7 +38,10 @@ namespace TCC.Controllers
             foreach (var property in typeof(DataSession).GetProperties())
             {
                 var value = jwtSecurityToken.Payload.Where(x => x.Key == property.Name).FirstOrDefault().Value;
-                
+
+                if (property.PropertyType == typeof(List<string>))
+                    value = value.ToString()?.Split(',').ToList();
+
                 property.SetValue(newDataSession, Convert.ChangeType(value, property.PropertyType));
             }
 

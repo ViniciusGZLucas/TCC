@@ -1,6 +1,4 @@
-﻿using Domain.Entry;
-
-namespace Domain.DTO.Base
+﻿namespace Domain.DTO.Base
 {
     public class BaseDTO
     {
@@ -10,7 +8,7 @@ namespace Domain.DTO.Base
         public DateTime? ChangeDate { get; set; }
         public long? ChangeUserId { get; set; }
 
-        public User CreationUser { get; set; }
-        public User? ChangeUser { get; set; }
+        public UserDTO CreationUser { get; set; }
+        public UserDTO? ChangeUser { get; set; }
     }
 }

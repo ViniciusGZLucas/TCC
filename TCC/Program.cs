@@ -30,6 +30,7 @@ builder.Services.AddTransient<IRoleRepository, RoleRepository>();
 builder.Services.AddTransient<IUserRoleRepository, UserRoleRepository>();
 builder.Services.AddTransient<IArticleRepository, ArticleRepository>();
 builder.Services.AddTransient<IArticleDocumentRepository, ArticleDocumentRepository>();
+builder.Services.AddTransient<IArticleScheduleRepository, ArticleScheduleRepository>();
 
 builder.Services.AddTransient<IUserBusinessRule, UserBusinessRule>();
 builder.Services.AddTransient<IRoleBusinessRule, RoleBusinessRule>();

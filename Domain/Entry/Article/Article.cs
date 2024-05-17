@@ -34,6 +34,7 @@
         #endregion
         #region External
         public virtual List<ArticleDocument> ListArticleDocuments { get; set; }
+        public virtual List<ArticleSchedule> ListArticleSchedule { get; set; }
         #endregion
         #endregion
     }

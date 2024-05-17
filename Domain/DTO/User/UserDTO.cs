@@ -1,5 +1,4 @@
 ﻿using Domain.DTO.Base;
-using Domain.Entry;
 
 namespace Domain.DTO
 {
@@ -24,12 +23,12 @@ namespace Domain.DTO
 
         #region VirtualProperties
         #region External
-        public List<User>? ListCreationUser { get; private set; }
-        public List<User>? ListChangeUser { get; private set; }
-        public List<Role>? ListRoleCreationUser { get; private set; }
-        public List<Role>? ListRoleChangeUser { get; private set; }
-        public List<UserRole>? ListUserRole { get; private set; }
-        public List<UserRole>? ListUserRoleCreationUser { get; private set; }
+        public List<UserDTO>? ListCreationUser { get; private set; }
+        public List<UserDTO>? ListChangeUser { get; private set; }
+        public List<RoleDTO>? ListRoleCreationUser { get; private set; }
+        public List<RoleDTO>? ListRoleChangeUser { get; private set; }
+        public List<UserRoleDTO>? ListUserRole { get; private set; }
+        public List<UserRoleDTO>? ListUserRoleCreationUser { get; private set; }
         #endregion
         #endregion
     }
