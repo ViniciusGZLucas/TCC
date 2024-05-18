@@ -23,6 +23,10 @@ namespace BusinessRule
 
         public ArticleDTO Create(DataSession dataSession, InputCreateArticleViewModel viewModel)
         {
+            if (_repository.GetByAuthorId(dataSession.Id) != null)
+                throw new Exception("Usuário já possui um projeto cadastrado");
+
+            viewModel.AuthorId = dataSession.Id;
             var dto = base.Create(dataSession, viewModel);
 
             return dto;

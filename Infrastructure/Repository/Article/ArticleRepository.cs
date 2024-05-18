@@ -10,5 +10,7 @@ namespace Infrastructure.Repository
         public ArticleRepository(IctDbContext context) : base(context)
         {
         }
+
+        public Article? GetByAuthorId(long authorId) => _dbSet.FirstOrDefault(x => x.AuthorId == authorId);
     }
 }

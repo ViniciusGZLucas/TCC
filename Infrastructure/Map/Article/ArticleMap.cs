@@ -44,17 +44,10 @@ namespace Infrastructure.Map
             builder.Property(x => x.CoAdvisorCurriculumLink)
                 .HasMaxLength(100);
 
-            builder.Property(x => x.File)
-                .HasMaxLength(255)
-                .IsRequired();
-
             builder.Property(x => x.AuthorId)
                 .IsRequired();
 
-            builder.Property(x => x.AuthorId)
-                .IsRequired();
-
-            builder.Property(x => x.AuthorId);
+            builder.Property(x => x.CoAdvisorId);
         }
     }
 }

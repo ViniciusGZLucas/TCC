@@ -5,5 +5,6 @@ namespace Domain.Interface.Repository
 {
     public interface IArticleRepository : IBaseRepository<Article>
     {
+        Article? GetByAuthorId(long authorId);
     }
 }
