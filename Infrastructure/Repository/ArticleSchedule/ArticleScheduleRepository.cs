@@ -10,5 +10,7 @@ namespace Infrastructure.Repository
         public ArticleScheduleRepository(IctDbContext context) : base(context)
         {
         }
+
+        public IList<ArticleSchedule>? GetByArticleId(long articleId) => _dbSet.Where(x => x.ArticleId == articleId).ToList();
     }
 }

@@ -54,7 +54,7 @@ namespace TCC.Controllers
 
         [Authorize]
         [HttpGet("GetById/{articleId}")]
-        public IActionResult GetByAuthorId([FromRoute] long articleId)
+        public IActionResult GetById([FromRoute] long articleId)
         {
             var dto = _articleBusinessRule.GetById(_dataSession, articleId);
 

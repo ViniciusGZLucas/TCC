@@ -14,11 +14,13 @@ namespace BusinessRule
     {
         private readonly IArticleDocumentRepository _articleDocumentRepository;
         private readonly IUserRepository _userRepository;
+        private readonly IArticleScheduleRepository _articleScheduleRepository;
 
-        public ArticleBusinessRule(IArticleRepository repository, IUnitOfWork unitOfWork, IArticleDocumentRepository articleDocumentRepository, IUserRepository userRepository) : base(repository, unitOfWork)
+        public ArticleBusinessRule(IArticleRepository repository, IUnitOfWork unitOfWork, IArticleDocumentRepository articleDocumentRepository, IUserRepository userRepository, IArticleScheduleRepository articleScheduleRepository) : base(repository, unitOfWork)
         {
             _articleDocumentRepository = articleDocumentRepository;
             _userRepository = userRepository;
+            _articleScheduleRepository = articleScheduleRepository;
         }
 
         public ArticleDTO Create(DataSession dataSession, InputCreateArticleViewModel viewModel)
@@ -99,14 +101,41 @@ namespace BusinessRule
             return listDTO;
         }
 
-        public ArticleDTO? GetByAuthorId(DataSession dataSession)
+        public ArticleDeliveryDateViewModel? GetByAuthorId(DataSession dataSession)
         {
             var article = _repository.GetByAuthorId(dataSession.Id);
 
-            return article;
+            if (article == null)
+                return default;
+
+            if (article.AuthorId != dataSession.Id)
+                return default;
+
+            var deliveryDates = _articleScheduleRepository.GetByArticleId(article.Id)?.Select(x => new ArticleScheduleViewModel
+            {
+                ArticleId = article.Id,
+                Date = x.Date,
+                Description = x.Description
+            }).ToList();
+
+            var articleDTO = new ArticleDeliveryDateViewModel
+            {
+                Id = article.Id,
+                Title = article.Title,
+                Description = article.Description,
+                Advisor = _userRepository.FindById(article.AdvisorId)?.Name,
+                AdvisorCurriculumLink = article.AdvisorCurriculumLink,
+                CoAdvisorCurriculumLink = article.CoAdvisorCurriculumLink,
+                AuthorId = article.AuthorId,
+                AdvisorId = article.AdvisorId,
+                CoAdvisorId = article.CoAdvisorId,
+                DeliveryDates = deliveryDates
+            };
+
+            return articleDTO;
         }
 
-        public ArticleDTO? GetById(DataSession dataSession, long articleId)
+        public ArticleDeliveryDateViewModel? GetById(DataSession dataSession, long articleId)
         {
             var article = _repository.FindById(articleId);
 
@@ -116,21 +145,25 @@ namespace BusinessRule
             if (article.AuthorId != dataSession.Id)
                 return default;
 
-            var articleDTO = new ArticleDTO
+            var deliveryDates = _articleScheduleRepository.GetByArticleId(article.Id)?.Select(x => new ArticleScheduleViewModel
+            {
+                ArticleId = article.Id,
+                Date = x.Date,
+                Description = x.Description
+            }).ToList();
+
+            var articleDTO = new ArticleDeliveryDateViewModel
             {
                 Id = article.Id,
-                CreationDate = article.CreationDate,
-                CreationUserId = article.CreationUserId,
-                ChangeDate = article.ChangeDate,
-                ChangeUserId = article.ChangeUserId,
                 Title = article.Title,
                 Description = article.Description,
+                Advisor = _userRepository.FindById(article.AdvisorId)?.Name,
                 AdvisorCurriculumLink = article.AdvisorCurriculumLink,
                 CoAdvisorCurriculumLink = article.CoAdvisorCurriculumLink,
                 AuthorId = article.AuthorId,
                 AdvisorId = article.AdvisorId,
                 CoAdvisorId = article.CoAdvisorId,
-                DevolutionDate = article.DevolutionDate
+                DeliveryDates = deliveryDates
             };
 
             return articleDTO;
