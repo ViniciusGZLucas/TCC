@@ -16,7 +16,7 @@ namespace TCC.Controllers
             _articleBusinessRule = articleBusinessRule;
         }
 
-        [AllowAnonymous]
+        [Authorize]
         [HttpPost("Create")]
         public IActionResult Create([FromBody] InputCreateArticleViewModel viewModel)
         {
@@ -25,13 +25,40 @@ namespace TCC.Controllers
             return Ok(dto.Id);
         }
 
-        [AllowAnonymous]
+        [Authorize]
         [HttpPost("LinkDocument")]
         public IActionResult LinkDocument([FromForm] InputLinkArticleDocumentViewModel viewModel)
         {
             _articleBusinessRule.LinkDocument(_dataSession, viewModel);
 
             return Ok();
+        }
+
+        [Authorize]
+        [HttpGet("GetAll")]
+        public IActionResult GetAll()
+        {
+            var listDTO = _articleBusinessRule.GetAll(_dataSession);
+
+            return Ok(listDTO);
+        }
+
+        [Authorize]
+        [HttpGet("GetByAuthorId")]
+        public IActionResult GetByAuthorId()
+        {
+            var dto = _articleBusinessRule.GetByAuthorId(_dataSession);
+
+            return Ok(dto);
+        }
+
+        [Authorize]
+        [HttpGet("GetById/{articleId}")]
+        public IActionResult GetByAuthorId([FromRoute] long articleId)
+        {
+            var dto = _articleBusinessRule.GetById(_dataSession, articleId);
+
+            return Ok(dto);
         }
     }
 }

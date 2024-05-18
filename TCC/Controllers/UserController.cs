@@ -1,5 +1,4 @@
 ﻿using Domain.Interface.BusinessRule;
-using Domain.ViewModel;
 using Domain.ViewModel.User;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -26,7 +25,7 @@ namespace TCC.Controllers
             return Ok(dto);
         }
 
-        [Authorize]
+        [AllowAnonymous]
         [HttpPost("Create")]
         public IActionResult Create(InputCreateUserViewModel viewModel)
         {

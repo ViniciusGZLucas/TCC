@@ -71,5 +71,69 @@ namespace BusinessRule
             _articleDocumentRepository.Create(articleDocumentEntry);
             _unitOfWork.Commit();
         }
+
+        public List<ArticleDTO>? GetAll(DataSession dataSession)
+        {
+            if (!dataSession.IsAdmin)
+                throw new Exception("Apenas Administradores podem usar esse metodo");
+
+            var listEntry = _repository.FindAll();
+
+            var listDTO = listEntry.Select(x => new ArticleDTO
+            {
+                Id = x.Id,
+                CreationDate = x.CreationDate,
+                CreationUserId = x.CreationUserId,
+                ChangeDate = x.ChangeDate,
+                ChangeUserId = x.ChangeUserId,
+                Title = x.Title,
+                Description = x.Description,
+                AdvisorCurriculumLink = x.AdvisorCurriculumLink,
+                CoAdvisorCurriculumLink = x.CoAdvisorCurriculumLink,
+                AuthorId = x.AuthorId,
+                AdvisorId = x.AdvisorId,
+                CoAdvisorId = x.CoAdvisorId,
+                DevolutionDate = x.DevolutionDate
+            }).ToList();
+
+            return listDTO;
+        }
+
+        public ArticleDTO? GetByAuthorId(DataSession dataSession)
+        {
+            var article = _repository.GetByAuthorId(dataSession.Id);
+
+            return article;
+        }
+
+        public ArticleDTO? GetById(DataSession dataSession, long articleId)
+        {
+            var article = _repository.FindById(articleId);
+
+            if (article == null)
+                return default;
+
+            if (article.AuthorId != dataSession.Id)
+                return default;
+
+            var articleDTO = new ArticleDTO
+            {
+                Id = article.Id,
+                CreationDate = article.CreationDate,
+                CreationUserId = article.CreationUserId,
+                ChangeDate = article.ChangeDate,
+                ChangeUserId = article.ChangeUserId,
+                Title = article.Title,
+                Description = article.Description,
+                AdvisorCurriculumLink = article.AdvisorCurriculumLink,
+                CoAdvisorCurriculumLink = article.CoAdvisorCurriculumLink,
+                AuthorId = article.AuthorId,
+                AdvisorId = article.AdvisorId,
+                CoAdvisorId = article.CoAdvisorId,
+                DevolutionDate = article.DevolutionDate
+            };
+
+            return articleDTO;
+        }
     }
 }

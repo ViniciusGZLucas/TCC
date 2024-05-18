@@ -1,5 +1,4 @@
-﻿using CrossCutting.Services.TokenService;
-using Domain.Entry;
+﻿using Domain.Entry;
 using Domain.Interface.Repository;
 using Infrastructure.Context;
 using Infrastructure.Repository.Base;
@@ -24,9 +23,10 @@ namespace Infrastructure.Repository
         public List<Role>? GetRolesByUser(long userId)
         {
             var roles = (from user in _dbSet
-                                 join userrole in _context.UserRoles on user.Id equals userrole.UserId
-                                 join role in _context.Roles on userrole.RoleId equals role.Id
-                                 select role).ToList();
+                         join userrole in _context.UserRoles on user.Id equals userrole.UserId
+                         join role in _context.Roles on userrole.RoleId equals role.Id
+                         where user.Id == userId
+                         select role).ToList();
 
             return roles;
         }
