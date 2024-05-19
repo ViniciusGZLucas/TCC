@@ -1,4 +1,6 @@
-﻿namespace Domain.Entry
+﻿using System.ComponentModel.DataAnnotations.Schema;
+
+namespace Domain.Entry
 {
     public class User : BaseEntry
     {
@@ -19,9 +21,15 @@
         public string Password { get; set; }
         public DateTime BindingDate { get; set; }
 
+        #region NotMapped
+        [NotMapped]
+        public override long CreationUserId { get => base.CreationUserId; set => base.CreationUserId = value; }
+        [NotMapped]
+        public override User CreationUser { get => base.CreationUser; set => base.CreationUser = value; }
+        #endregion
+
         #region VirtualProperties
         #region External
-        public virtual List<User> ListCreationUser { get; set; }
         public virtual List<User> ListChangeUser { get; set; }
 
         #region Role
@@ -35,8 +43,6 @@
         public virtual List<Article> ListArticleCreationUser { get; set; }
         public virtual List<Article> ListArticleChangeUser { get; set; }
         public virtual List<Article> ListArticleAuthor { get; set; }
-        public virtual List<Article> ListArticleAdvisor { get; set; }
-        public virtual List<Article> ListArticleCoAdvisor { get; set; }
         #endregion
 
         #region ArticleDocument

@@ -34,8 +34,6 @@ namespace Infrastructure.Repository
             ChangeUserId = x.ChangeUserId,
             Title = x.Title,
             Description = x.Description,
-            AdvisorCurriculumLink = x.AdvisorCurriculumLink,
-            CoAdvisorCurriculumLink = x.CoAdvisorCurriculumLink,
             AuthorId = x.AuthorId,
             AdvisorId = x.AdvisorId,
             CoAdvisorId = x.CoAdvisorId,

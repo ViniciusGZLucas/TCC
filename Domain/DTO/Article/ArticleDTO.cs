@@ -1,5 +1,4 @@
 ﻿using Domain.DTO.Base;
-using Domain.Entry;
 
 namespace Domain.DTO
 {
@@ -7,12 +6,10 @@ namespace Domain.DTO
     {
         public ArticleDTO() { }
 
-        public ArticleDTO(string title, string description, string advisorCurriculumLink, string? coAdvisorCurriculumLink, long authorId, long advisorId, long? coAdvisorId, UserDTO author, UserDTO advisor, UserDTO? coAdvisor, DateTime devolutionDate)
+        public ArticleDTO(string title, string description, long authorId, long advisorId, long? coAdvisorId, UserDTO author, UserDTO advisor, UserDTO? coAdvisor, DateTime devolutionDate)
         {
             Title = title;
             Description = description;
-            AdvisorCurriculumLink = advisorCurriculumLink;
-            CoAdvisorCurriculumLink = coAdvisorCurriculumLink;
             AuthorId = authorId;
             AdvisorId = advisorId;
             CoAdvisorId = coAdvisorId;
@@ -24,8 +21,6 @@ namespace Domain.DTO
 
         public string Title { get; set; }
         public string Description { get; set; }
-        public string AdvisorCurriculumLink { get; set; }
-        public string? CoAdvisorCurriculumLink { get; set; }
         public long AuthorId { get; set; }
         public long AdvisorId { get; set; }
         public long? CoAdvisorId { get; set; }

@@ -31,11 +31,15 @@ builder.Services.AddTransient<IUserRoleRepository, UserRoleRepository>();
 builder.Services.AddTransient<IArticleRepository, ArticleRepository>();
 builder.Services.AddTransient<IArticleDocumentRepository, ArticleDocumentRepository>();
 builder.Services.AddTransient<IArticleScheduleRepository, ArticleScheduleRepository>();
+builder.Services.AddTransient<IAdvisorRepository, AdvisorRepository>();
+builder.Services.AddTransient<ICourseRepository, CourseRepository>();
 
 builder.Services.AddTransient<IUserBusinessRule, UserBusinessRule>();
 builder.Services.AddTransient<IRoleBusinessRule, RoleBusinessRule>();
 builder.Services.AddTransient<IUserRoleBusinessRule, UserRoleBusinessRule>();
 builder.Services.AddTransient<IArticleBusinessRule, ArticleBusinessRule>();
+builder.Services.AddTransient<IAdvisorBusinessRule, AdvisorBusinessRule>();
+builder.Services.AddTransient<ICourseBusinessRule, CourseBusinessRule>();
 
 builder.Services.AddControllers();
 

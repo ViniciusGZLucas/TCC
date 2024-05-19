@@ -72,7 +72,8 @@ namespace BusinessRule.Base
         {
             var entryType = newEntry?.GetType();
 
-            entryType.GetProperty("CreationUserId")?.SetValue(newEntry, dataSession.Id);
+            if (dataSession != null)
+                entryType.GetProperty("CreationUserId")?.SetValue(newEntry, dataSession.Id);
             entryType.GetProperty("CreationDate")?.SetValue(newEntry, DateTime.Now);
         }
 

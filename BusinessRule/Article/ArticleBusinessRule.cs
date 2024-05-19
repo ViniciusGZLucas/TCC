@@ -15,12 +15,14 @@ namespace BusinessRule
         private readonly IArticleDocumentRepository _articleDocumentRepository;
         private readonly IUserRepository _userRepository;
         private readonly IArticleScheduleRepository _articleScheduleRepository;
+        private readonly IAdvisorRepository _advisorRepository;
 
-        public ArticleBusinessRule(IArticleRepository repository, IUnitOfWork unitOfWork, IArticleDocumentRepository articleDocumentRepository, IUserRepository userRepository, IArticleScheduleRepository articleScheduleRepository) : base(repository, unitOfWork)
+        public ArticleBusinessRule(IArticleRepository repository, IUnitOfWork unitOfWork, IArticleDocumentRepository articleDocumentRepository, IUserRepository userRepository, IArticleScheduleRepository articleScheduleRepository, IAdvisorRepository advisorRepository) : base(repository, unitOfWork)
         {
             _articleDocumentRepository = articleDocumentRepository;
             _userRepository = userRepository;
             _articleScheduleRepository = articleScheduleRepository;
+            _advisorRepository = advisorRepository;
         }
 
         public ArticleDTO Create(DataSession dataSession, InputCreateArticleViewModel viewModel)
@@ -92,6 +94,9 @@ namespace BusinessRule
             if (article.AuthorId != dataSession.Id)
                 return default;
 
+            var advisor = _advisorRepository.FindById(article.AdvisorId);
+            var coAdvisor = _advisorRepository.FindById(article.CoAdvisorId ?? 0);
+
             var deliveryDates = _articleScheduleRepository.GetByArticleId(article.Id)?.Select(x => new ArticleScheduleViewModel
             {
                 ArticleId = article.Id,
@@ -105,8 +110,8 @@ namespace BusinessRule
                 Title = article.Title,
                 Description = article.Description,
                 Advisor = _userRepository.FindById(article.AdvisorId)?.Name,
-                AdvisorCurriculumLink = article.AdvisorCurriculumLink,
-                CoAdvisorCurriculumLink = article.CoAdvisorCurriculumLink,
+                AdvisorCurriculumLink = advisor?.CurriculumLink,
+                CoAdvisorCurriculumLink = coAdvisor?.CurriculumLink,
                 AuthorId = article.AuthorId,
                 AdvisorId = article.AdvisorId,
                 CoAdvisorId = article.CoAdvisorId,
@@ -123,8 +128,11 @@ namespace BusinessRule
             if (article == null)
                 return default;
 
-            if (article.AuthorId != dataSession.Id)
+            if (article.AuthorId != dataSession.Id && !dataSession.IsAdmin)
                 return default;
+
+            var advisor = _advisorRepository.FindById(article.AdvisorId);
+            var coAdvisor = _advisorRepository.FindById(article.CoAdvisorId ?? 0);
 
             var deliveryDates = _articleScheduleRepository.GetByArticleId(article.Id)?.Select(x => new ArticleScheduleViewModel
             {
@@ -139,8 +147,8 @@ namespace BusinessRule
                 Title = article.Title,
                 Description = article.Description,
                 Advisor = _userRepository.FindById(article.AdvisorId)?.Name,
-                AdvisorCurriculumLink = article.AdvisorCurriculumLink,
-                CoAdvisorCurriculumLink = article.CoAdvisorCurriculumLink,
+                AdvisorCurriculumLink = advisor?.CurriculumLink,
+                CoAdvisorCurriculumLink = coAdvisor?.CurriculumLink,
                 AuthorId = article.AuthorId,
                 AdvisorId = article.AdvisorId,
                 CoAdvisorId = article.CoAdvisorId,
@@ -155,7 +163,14 @@ namespace BusinessRule
             if (!dataSession.IsAdmin)
                 throw new Exception("Apenas Administradores podem usar esse metodo");
 
-            _repository.Delete(_repository.FindById(id));
+            var article = _repository.FindById(id);
+
+            _unitOfWork.StartTransaction();
+
+            if(article != null)
+                _repository.Delete(article);
+
+            _unitOfWork.Commit();
         }
     }
 }

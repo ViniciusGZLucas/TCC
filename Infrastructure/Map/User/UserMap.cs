@@ -10,16 +10,12 @@ namespace Infrastructure.Map
         {
             builder.HasKey(x => x.Id);
 
-            builder.HasOne(x => x.CreationUser).WithMany(x => x.ListCreationUser).HasForeignKey(x => x.CreationUserId);
             builder.HasOne(x => x.ChangeUser).WithMany(x => x.ListChangeUser).HasForeignKey(x => x.ChangeUserId);
 
             builder.Property(x => x.Id)
                 .IsRequired();
 
             builder.Property(x => x.CreationDate)
-                .IsRequired();
-
-            builder.Property(x => x.CreationUserId)
                 .IsRequired();
 
             builder.Property(x => x.ChangeDate);

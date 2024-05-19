@@ -37,13 +37,6 @@ namespace Infrastructure.Map
                 .HasMaxLength(500)
                 .IsRequired();
 
-            builder.Property(x => x.AdvisorCurriculumLink)
-                .HasMaxLength(100)
-                .IsRequired();
-
-            builder.Property(x => x.CoAdvisorCurriculumLink)
-                .HasMaxLength(100);
-
             builder.Property(x => x.AuthorId)
                 .IsRequired();
 
