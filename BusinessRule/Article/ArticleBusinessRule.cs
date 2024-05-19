@@ -109,7 +109,7 @@ namespace BusinessRule
                 Id = article.Id,
                 Title = article.Title,
                 Description = article.Description,
-                Advisor = _userRepository.FindById(article.AdvisorId)?.Name,
+                Advisor = _advisorRepository.FindById(article.AdvisorId)?.Name,
                 AdvisorCurriculumLink = advisor?.CurriculumLink,
                 CoAdvisorCurriculumLink = coAdvisor?.CurriculumLink,
                 AuthorId = article.AuthorId,
