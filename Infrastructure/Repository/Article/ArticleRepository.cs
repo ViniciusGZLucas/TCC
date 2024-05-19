@@ -1,8 +1,10 @@
 ﻿using Domain.DTO;
 using Domain.Entry;
 using Domain.Interface.Repository;
+using Domain.ViewModel.Article;
 using Infrastructure.Context;
 using Infrastructure.Repository.Base;
+using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Repository
 {
@@ -10,6 +12,17 @@ namespace Infrastructure.Repository
     {
         public ArticleRepository(IctDbContext context) : base(context)
         {
+        }
+
+        public IList<ArticleGridViewModel> GetAll()
+        {
+            return _dbSet.Include(x => x.Advisor).Include(x => x.Author).Select(x => new ArticleGridViewModel
+            {
+                Id = x.Id,
+                Title = x.Title,
+                Author = x.Author.Name,
+                Advisor = x.Advisor.Name
+            }).ToList();
         }
 
         public ArticleDTO? GetByAuthorId(long authorId) => _dbSet.Select(x => new ArticleDTO

@@ -74,31 +74,12 @@ namespace BusinessRule
             _unitOfWork.Commit();
         }
 
-        public List<ArticleDTO>? GetAll(DataSession dataSession)
+        public IList<ArticleGridViewModel>? GetAll(DataSession dataSession)
         {
             if (!dataSession.IsAdmin)
                 throw new Exception("Apenas Administradores podem usar esse metodo");
 
-            var listEntry = _repository.FindAll();
-
-            var listDTO = listEntry.Select(x => new ArticleDTO
-            {
-                Id = x.Id,
-                CreationDate = x.CreationDate,
-                CreationUserId = x.CreationUserId,
-                ChangeDate = x.ChangeDate,
-                ChangeUserId = x.ChangeUserId,
-                Title = x.Title,
-                Description = x.Description,
-                AdvisorCurriculumLink = x.AdvisorCurriculumLink,
-                CoAdvisorCurriculumLink = x.CoAdvisorCurriculumLink,
-                AuthorId = x.AuthorId,
-                AdvisorId = x.AdvisorId,
-                CoAdvisorId = x.CoAdvisorId,
-                DevolutionDate = x.DevolutionDate
-            }).ToList();
-
-            return listDTO;
+            return _repository.GetAll();
         }
 
         public ArticleDeliveryDateViewModel? GetByAuthorId(DataSession dataSession)
@@ -167,6 +148,14 @@ namespace BusinessRule
             };
 
             return articleDTO;
+        }
+
+        public void Delete(DataSession dataSession, long id)
+        {
+            if (!dataSession.IsAdmin)
+                throw new Exception("Apenas Administradores podem usar esse metodo");
+
+            _repository.Delete(_repository.FindById(id));
         }
     }
 }

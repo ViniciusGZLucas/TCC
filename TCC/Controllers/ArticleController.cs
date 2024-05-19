@@ -60,5 +60,14 @@ namespace TCC.Controllers
 
             return Ok(dto);
         }
+
+        [Authorize]
+        [HttpDelete("Delete/{articleId}")]
+        public IActionResult Delete([FromRoute] long articleId)
+        {
+            _articleBusinessRule.Delete(_dataSession, articleId);
+
+            return Ok();
+        }
     }
 }
