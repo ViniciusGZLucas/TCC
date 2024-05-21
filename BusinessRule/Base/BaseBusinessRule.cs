@@ -64,7 +64,7 @@ namespace BusinessRule.Base
             catch (Exception ex)
             {
                 _unitOfWork.Rollback();
-                throw new Exception(ex.Message);
+                throw new Exception(ex.InnerException?.Message ?? ex.Message);
             }
         }
 

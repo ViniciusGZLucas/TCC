@@ -16,7 +16,7 @@ namespace TCC.Controllers
             _articlescheduleBusinessRule = articlescheduleBusinessRule;
         }
 
-        [AllowAnonymous]
+        [Authorize]
         [HttpPost("Create")]
         public IActionResult Create([FromBody] InputCreateArticleScheduleViewModel viewModel)
         {

@@ -95,6 +95,7 @@ namespace BusinessRule
                 return default;
 
             var advisor = _advisorRepository.FindById(article.AdvisorId);
+            var author = _userRepository.FindById(article.AuthorId);
             var coAdvisor = _advisorRepository.FindById(article.CoAdvisorId ?? 0);
 
             var deliveryDates = _articleScheduleRepository.GetByArticleId(article.Id)?.Select(x => new ArticleScheduleViewModel
@@ -109,7 +110,8 @@ namespace BusinessRule
                 Id = article.Id,
                 Title = article.Title,
                 Description = article.Description,
-                Advisor = _advisorRepository.FindById(article.AdvisorId)?.Name,
+                Advisor = advisor?.Name,
+                Author = author?.Name,
                 AdvisorCurriculumLink = advisor?.CurriculumLink,
                 CoAdvisorCurriculumLink = coAdvisor?.CurriculumLink,
                 AuthorId = article.AuthorId,
@@ -132,6 +134,7 @@ namespace BusinessRule
                 return default;
 
             var advisor = _advisorRepository.FindById(article.AdvisorId);
+            var author = _userRepository.FindById(article.AuthorId);
             var coAdvisor = _advisorRepository.FindById(article.CoAdvisorId ?? 0);
 
             var deliveryDates = _articleScheduleRepository.GetByArticleId(article.Id)?.Select(x => new ArticleScheduleViewModel
@@ -145,8 +148,9 @@ namespace BusinessRule
             {
                 Id = article.Id,
                 Title = article.Title,
+                Author = author?.Name,
                 Description = article.Description,
-                Advisor = _userRepository.FindById(article.AdvisorId)?.Name,
+                Advisor = _advisorRepository.FindById(article.AdvisorId)?.Name,
                 AdvisorCurriculumLink = advisor?.CurriculumLink,
                 CoAdvisorCurriculumLink = coAdvisor?.CurriculumLink,
                 AuthorId = article.AuthorId,
