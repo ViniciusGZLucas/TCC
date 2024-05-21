@@ -1,4 +1,5 @@
 ﻿using BusinessRule.Base;
+using CrossCutting.DataSession;
 using Domain.DTO;
 using Domain.Interface;
 using Domain.Interface.BusinessRule.ArticleSchedule;
@@ -21,6 +22,21 @@ namespace BusinessRule
         public override void ViewModelValidationProcess(InputCreateArticleScheduleViewModel viewModel)
         {
 
+        }
+
+        public void Delete(DataSession dataSession, long id)
+        {
+            if (!dataSession.IsAdmin)
+                throw new Exception("Apenas Administradores podem usar esse metodo");
+
+            var articleSchedule = _repository.FindById(id);
+
+            _unitOfWork.StartTransaction();
+
+            if (articleSchedule != null)
+                _repository.Delete(articleSchedule);
+
+            _unitOfWork.Commit();
         }
     }
 }

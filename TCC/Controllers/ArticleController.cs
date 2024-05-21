@@ -69,5 +69,14 @@ namespace TCC.Controllers
 
             return Ok();
         }
+
+        [Authorize]
+        [HttpPost("Accept/{articleId}")]
+        public IActionResult Accept([FromRoute] long articleId)
+        {
+            _articleBusinessRule.Accept(_dataSession, articleId);
+
+            return Ok();
+        }
     }
 }

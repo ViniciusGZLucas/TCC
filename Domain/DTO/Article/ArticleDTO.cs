@@ -6,7 +6,7 @@ namespace Domain.DTO
     {
         public ArticleDTO() { }
 
-        public ArticleDTO(string title, string description, long authorId, long advisorId, long? coAdvisorId, UserDTO author, UserDTO advisor, UserDTO? coAdvisor, DateTime devolutionDate)
+        public ArticleDTO(string title, string description, long authorId, long advisorId, long? coAdvisorId, UserDTO author, UserDTO advisor, UserDTO? coAdvisor, DateTime devolutionDate, bool isAccepted)
         {
             Title = title;
             Description = description;
@@ -17,6 +17,7 @@ namespace Domain.DTO
             Advisor = advisor;
             CoAdvisor = coAdvisor;
             DevolutionDate = devolutionDate;
+            IsAccepted = isAccepted;
         }
 
         public string Title { get; set; }
@@ -25,6 +26,7 @@ namespace Domain.DTO
         public long AdvisorId { get; set; }
         public long? CoAdvisorId { get; set; }
         public DateTime DevolutionDate { get; set; }
+        public bool IsAccepted { get; set; }
 
         #region VirtualPropeties
         #region Internal

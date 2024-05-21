@@ -53,6 +53,16 @@ namespace Domain.Entry
         #region ArticleSchedule
         public virtual List<ArticleSchedule> ListArticleScheduleCreationUser { get; set; }
         #endregion
+
+        #region Advisor
+        public virtual List<Advisor> ListAdvisorCreationUser { get; set; }
+        public virtual List<Advisor> ListAdvisorChangeUser { get; set; }
+        #endregion
+
+        #region Course
+        public virtual List<Course> ListCourseCreationUser { get; set; }
+        public virtual List<Course> ListCourseChangeUser { get; set; }
+        #endregion
         #endregion
         #endregion
     }

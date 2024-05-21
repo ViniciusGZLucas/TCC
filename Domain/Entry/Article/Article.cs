@@ -4,13 +4,14 @@
     {
         public Article() { }
 
-        public Article(string title, string description, long authorId, long advisorId, long? coAdvisorId)
+        public Article(string title, string description, long authorId, long advisorId, long? coAdvisorId, bool isAccepted)
         {
             Title = title;
             Description = description;
             AuthorId = authorId;
             AdvisorId = advisorId;
             CoAdvisorId = coAdvisorId;
+            IsAccepted = isAccepted;
         }
 
         public string Title { get; set; }
@@ -19,6 +20,7 @@
         public long AdvisorId { get; set; }
         public long? CoAdvisorId { get; set; }
         public DateTime DevolutionDate { get; set; }
+        public bool IsAccepted { get; set; }
 
         #region VirtualPropeties
         #region Internal

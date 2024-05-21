@@ -13,7 +13,7 @@
 
         #region Virtual Properties
         #region External
-        public virtual List<Article> ListArticle { get; set; }
+        public virtual List<Advisor> ListAdvisor { get; set; }
         #endregion
         #endregion
     }

@@ -117,6 +117,7 @@ namespace BusinessRule
                 AuthorId = article.AuthorId,
                 AdvisorId = article.AdvisorId,
                 CoAdvisorId = article.CoAdvisorId,
+                IsAccepted = article.IsAccepted,
                 DeliveryDates = deliveryDates
             };
 
@@ -156,6 +157,7 @@ namespace BusinessRule
                 AuthorId = article.AuthorId,
                 AdvisorId = article.AdvisorId,
                 CoAdvisorId = article.CoAdvisorId,
+                IsAccepted = article.IsAccepted,
                 DeliveryDates = deliveryDates
             };
 
@@ -173,6 +175,25 @@ namespace BusinessRule
 
             if(article != null)
                 _repository.Delete(article);
+
+            _unitOfWork.Commit();
+        }
+
+        public void Accept(DataSession dataSession, long id)
+        {
+            if (!dataSession.IsAdmin)
+                throw new Exception("Apenas Administradores podem usar esse metodo");
+
+            var article = _repository.FindById(id);
+
+            _unitOfWork.StartTransaction();
+
+            if (article != null)
+            {
+                article.IsAccepted = true;
+
+                _repository.Update(article);
+            }
 
             _unitOfWork.Commit();
         }

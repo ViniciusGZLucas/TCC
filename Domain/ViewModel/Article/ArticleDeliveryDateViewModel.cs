@@ -13,6 +13,7 @@
         public long? AuthorId { get; set; }
         public long? AdvisorId { get; set; }
         public long? CoAdvisorId { get; set; }
+        public bool? IsAccepted { get; set; }
         public IList<ArticleScheduleViewModel>? DeliveryDates { get; set; }
     }
 }

@@ -4,7 +4,6 @@ using Domain.Interface.Repository;
 using Domain.ViewModel.Article;
 using Infrastructure.Context;
 using Infrastructure.Repository.Base;
-using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Repository
 {
@@ -16,13 +15,17 @@ namespace Infrastructure.Repository
 
         public IList<ArticleGridViewModel> GetAll()
         {
-            return _dbSet.Include(x => x.Advisor).Include(x => x.Author).Select(x => new ArticleGridViewModel
-            {
-                Id = x.Id,
-                Title = x.Title,
-                Author = x.Author.Name,
-                Advisor = x.Advisor.Name
-            }).ToList();
+            return (from article in _dbSet
+                    join advisor in _context.Advisors on article.AdvisorId equals advisor.Id
+                    join author in _context.Users on article.AuthorId equals author.Id
+                    select new ArticleGridViewModel
+                    {
+                        Id = article.Id,
+                        Title = article.Title,
+                        Author = author.Name,
+                        Advisor = advisor.Name,
+                        IsAccepted = article.IsAccepted
+                    }).ToList();
         }
 
         public ArticleDTO? GetByAuthorId(long authorId) => _dbSet.Select(x => new ArticleDTO
@@ -37,7 +40,8 @@ namespace Infrastructure.Repository
             AuthorId = x.AuthorId,
             AdvisorId = x.AdvisorId,
             CoAdvisorId = x.CoAdvisorId,
-            DevolutionDate = x.DevolutionDate
+            DevolutionDate = x.DevolutionDate,
+            IsAccepted = x.IsAccepted
 
         }).FirstOrDefault(x => x.AuthorId == authorId);
     }

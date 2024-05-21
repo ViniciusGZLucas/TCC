@@ -29,5 +29,25 @@ namespace BusinessRule
         public override void ViewModelValidationProcess(InputCreateAdvisorViewModel viewModel)
         {
         }
+
+        public IList<AdvisorGridViewModel>? GetAll()
+        {
+            return _repository.GetAll();
+        }
+
+        public void Delete(DataSession dataSession, long id)
+        {
+            if (!dataSession.IsAdmin)
+                throw new Exception("Apenas Administradores podem usar esse metodo");
+
+            var advisor = _repository.FindById(id);
+
+            _unitOfWork.StartTransaction();
+
+            if (advisor != null)
+                _repository.Delete(advisor);
+
+            _unitOfWork.Commit();
+        }
     }
 }

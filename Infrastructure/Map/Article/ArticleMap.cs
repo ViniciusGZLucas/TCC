@@ -41,6 +41,9 @@ namespace Infrastructure.Map
                 .IsRequired();
 
             builder.Property(x => x.CoAdvisorId);
+
+            builder.Property(x => x.IsAccepted)
+                .IsRequired();
         }
     }
 }

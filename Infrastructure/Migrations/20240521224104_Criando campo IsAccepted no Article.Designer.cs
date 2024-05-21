@@ -3,6 +3,7 @@ using System;
 using Infrastructure.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(IctDbContext))]
-    partial class IctDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240521224104_Criando campo IsAccepted no Article")]
+    partial class CriandocampoIsAcceptednoArticle
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -56,7 +58,7 @@ namespace Infrastructure.Migrations
 
                     b.HasIndex("CreationUserId");
 
-                    b.ToTable("Advisors");
+                    b.ToTable("Advisor");
                 });
 
             modelBuilder.Entity("Domain.Entry.Article", b =>
@@ -78,6 +80,9 @@ namespace Infrastructure.Migrations
                         .HasColumnType("bigint");
 
                     b.Property<long?>("CoAdvisorId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long?>("CourseId")
                         .HasColumnType("bigint");
 
                     b.Property<DateTime>("CreationDate")
@@ -111,6 +116,8 @@ namespace Infrastructure.Migrations
                     b.HasIndex("ChangeUserId");
 
                     b.HasIndex("CoAdvisorId");
+
+                    b.HasIndex("CourseId");
 
                     b.HasIndex("CreationUserId");
 
@@ -226,7 +233,7 @@ namespace Infrastructure.Migrations
 
                     b.HasIndex("CreationUserId");
 
-                    b.ToTable("Courses");
+                    b.ToTable("Course");
                 });
 
             modelBuilder.Entity("Domain.Entry.Role", b =>
@@ -267,7 +274,7 @@ namespace Infrastructure.Migrations
                         new
                         {
                             Id = 1L,
-                            CreationDate = new DateTime(2024, 5, 21, 20, 24, 31, 796, DateTimeKind.Local).AddTicks(810),
+                            CreationDate = new DateTime(2024, 5, 21, 19, 41, 4, 450, DateTimeKind.Local).AddTicks(7590),
                             CreationUserId = 1L,
                             IsAdmin = true,
                             Name = "Admin"
@@ -321,8 +328,8 @@ namespace Infrastructure.Migrations
                         new
                         {
                             Id = 1L,
-                            BindingDate = new DateTime(2024, 5, 21, 20, 24, 31, 796, DateTimeKind.Local).AddTicks(2045),
-                            CreationDate = new DateTime(2024, 5, 21, 20, 24, 31, 796, DateTimeKind.Local).AddTicks(2050),
+                            BindingDate = new DateTime(2024, 5, 21, 19, 41, 4, 450, DateTimeKind.Local).AddTicks(9002),
+                            CreationDate = new DateTime(2024, 5, 21, 19, 41, 4, 450, DateTimeKind.Local).AddTicks(9007),
                             Email = "admin@admin.com",
                             Name = "Admin",
                             Password = "123456",
@@ -368,7 +375,7 @@ namespace Infrastructure.Migrations
                         new
                         {
                             Id = 1L,
-                            CreationDate = new DateTime(2024, 5, 21, 20, 24, 31, 798, DateTimeKind.Local).AddTicks(620),
+                            CreationDate = new DateTime(2024, 5, 21, 19, 41, 4, 452, DateTimeKind.Local).AddTicks(8287),
                             CreationUserId = 1L,
                             RoleId = 1L,
                             UserId = 1L
@@ -378,17 +385,17 @@ namespace Infrastructure.Migrations
             modelBuilder.Entity("Domain.Entry.Advisor", b =>
                 {
                     b.HasOne("Domain.Entry.User", "ChangeUser")
-                        .WithMany("ListAdvisorChangeUser")
+                        .WithMany()
                         .HasForeignKey("ChangeUserId");
 
                     b.HasOne("Domain.Entry.Course", "Course")
-                        .WithMany("ListAdvisor")
+                        .WithMany()
                         .HasForeignKey("CourseId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("Domain.Entry.User", "CreationUser")
-                        .WithMany("ListAdvisorCreationUser")
+                        .WithMany()
                         .HasForeignKey("CreationUserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -421,6 +428,10 @@ namespace Infrastructure.Migrations
                     b.HasOne("Domain.Entry.Advisor", "CoAdvisor")
                         .WithMany("ListArticleCoAdvisor")
                         .HasForeignKey("CoAdvisorId");
+
+                    b.HasOne("Domain.Entry.Course", null)
+                        .WithMany("ListArticle")
+                        .HasForeignKey("CourseId");
 
                     b.HasOne("Domain.Entry.User", "CreationUser")
                         .WithMany("ListArticleCreationUser")
@@ -492,11 +503,11 @@ namespace Infrastructure.Migrations
             modelBuilder.Entity("Domain.Entry.Course", b =>
                 {
                     b.HasOne("Domain.Entry.User", "ChangeUser")
-                        .WithMany("ListCourseChangeUser")
+                        .WithMany()
                         .HasForeignKey("ChangeUserId");
 
                     b.HasOne("Domain.Entry.User", "CreationUser")
-                        .WithMany("ListCourseCreationUser")
+                        .WithMany()
                         .HasForeignKey("CreationUserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -575,7 +586,7 @@ namespace Infrastructure.Migrations
 
             modelBuilder.Entity("Domain.Entry.Course", b =>
                 {
-                    b.Navigation("ListAdvisor");
+                    b.Navigation("ListArticle");
                 });
 
             modelBuilder.Entity("Domain.Entry.Role", b =>
@@ -585,10 +596,6 @@ namespace Infrastructure.Migrations
 
             modelBuilder.Entity("Domain.Entry.User", b =>
                 {
-                    b.Navigation("ListAdvisorChangeUser");
-
-                    b.Navigation("ListAdvisorCreationUser");
-
                     b.Navigation("ListArticleAuthor");
 
                     b.Navigation("ListArticleChangeUser");
@@ -602,10 +609,6 @@ namespace Infrastructure.Migrations
                     b.Navigation("ListArticleScheduleCreationUser");
 
                     b.Navigation("ListChangeUser");
-
-                    b.Navigation("ListCourseChangeUser");
-
-                    b.Navigation("ListCourseCreationUser");
 
                     b.Navigation("ListRoleChangeUser");
 

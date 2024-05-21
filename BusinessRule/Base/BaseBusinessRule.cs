@@ -32,12 +32,18 @@ namespace BusinessRule.Base
 
             for (var x = 0; x < viewModelProperties.Count(); x++)
             {
-                var entryProperty = entryProperties[x];
-                var viewModelProperty = viewModelProperties[x];
-                var dtosProperty = dtoProperties[x];
+                var entryProperty = entryProperties.Count >= x ? entryProperties[x] : null;
+                var viewModelProperty = viewModelProperties.Count() >= x? viewModelProperties[x] : null;
+                var dtosProperty = dtoProperties.Count >= x ? dtoProperties[x] : null;
 
-                entryProperty.SetValue(newEntry, viewModelProperty.GetValue(viewModel));
-                dtosProperty.SetValue(newDTO, viewModelProperty.GetValue(viewModel));
+                if (viewModelProperty == null)
+                    continue;
+
+                if(entryProperty != null)
+                    entryProperty.SetValue(newEntry, viewModelProperty.GetValue(viewModel));
+
+                if(dtosProperty != null)
+                    dtosProperty.SetValue(newDTO, viewModelProperty.GetValue(viewModel));
             }
 
             DTOValidationProcess((TDTO)newDTO);

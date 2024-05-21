@@ -12,5 +12,6 @@ namespace Domain.Interface.BusinessRule
         ArticleDeliveryDateViewModel? GetById(DataSession dataSession, long articleId);
         void LinkDocument(DataSession dataSession, InputLinkArticleDocumentViewModel viewModel);
         void Delete(DataSession dataSession, long id);
+        void Accept(DataSession dataSession, long id);
     }
 }
