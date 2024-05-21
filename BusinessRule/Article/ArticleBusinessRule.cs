@@ -140,6 +140,7 @@ namespace BusinessRule
 
             var deliveryDates = _articleScheduleRepository.GetByArticleId(article.Id)?.Select(x => new ArticleScheduleViewModel
             {
+                Id = x.Id,
                 ArticleId = article.Id,
                 Date = x.Date,
                 Description = x.Description
