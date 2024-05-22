@@ -9,6 +9,5 @@ namespace Domain.Interface.BusinessRule.ArticleSchedule
     public interface IArticleScheduleBusinessRule : IBaseBusinessRule<IArticleRepository, ArticleScheduleDTO, ArticleScheduleViewModel, InputCreateArticleScheduleViewModel>
     {
         void Delete(DataSession dataSession, long id);
-        new ArticleScheduleDTO Create(DataSession dataSession, InputCreateArticleScheduleViewModel viewModel);
     }
 }

@@ -14,14 +14,6 @@ namespace BusinessRule
         {
         }
 
-        public new ArticleScheduleDTO Create(DataSession dataSession, InputCreateArticleScheduleViewModel viewModel)
-        {
-            if (viewModel.Date == null) throw new Exception("Necessário preencher data da entrega");
-            if (string.IsNullOrEmpty(viewModel.Description)) throw new Exception("Necessário preencher descrição da entrega");
-
-            return base.Create(dataSession, viewModel);
-        }
-
         public override void DTOValidationProcess(ArticleScheduleDTO dto)
         {
 
@@ -29,7 +21,8 @@ namespace BusinessRule
 
         public override void ViewModelValidationProcess(InputCreateArticleScheduleViewModel viewModel)
         {
-
+            if (viewModel.Date == null) throw new Exception("Necessário preencher data da entrega");
+            if (string.IsNullOrEmpty(viewModel.Description)) throw new Exception("Necessário preencher descrição da entrega");
         }
 
         public void Delete(DataSession dataSession, long id)
