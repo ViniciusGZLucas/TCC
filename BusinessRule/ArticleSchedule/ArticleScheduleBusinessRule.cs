@@ -21,7 +21,8 @@ namespace BusinessRule
 
         public override void ViewModelValidationProcess(InputCreateArticleScheduleViewModel viewModel)
         {
-
+            if (viewModel.Date == null) throw new Exception("Necessário preencher data da entrega");
+            if (string.IsNullOrEmpty(viewModel.Description)) throw new Exception("Necessário preencher descrição da entrega");
         }
 
         public void Delete(DataSession dataSession, long id)
