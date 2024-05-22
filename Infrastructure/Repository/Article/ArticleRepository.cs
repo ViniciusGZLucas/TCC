@@ -24,7 +24,7 @@ namespace Infrastructure.Repository
                         Title = article.Title,
                         Author = author.Name,
                         Advisor = advisor.Name,
-                        IsAccepted = article.IsAccepted
+                        IsAccepted = article.IsAccepted,
                     }).ToList();
         }
 

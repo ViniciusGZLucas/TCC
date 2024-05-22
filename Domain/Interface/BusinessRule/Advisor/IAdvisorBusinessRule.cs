@@ -8,5 +8,6 @@ namespace Domain.Interface.BusinessRule
     {
         AdvisorDTO Create(DataSession dataSession, InputCreateAdvisorViewModel viewModel);
         void Delete(DataSession dataSession, long id);
+        IList<AdvisorGridViewModel>? GetAll();
     }
 }

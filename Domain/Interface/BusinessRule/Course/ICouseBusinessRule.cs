@@ -7,5 +7,6 @@ namespace Domain.Interface.BusinessRule
     public interface ICourseBusinessRule
     {
         CourseDTO Create(DataSession dataSession, InputCreateCourseViewModel viewModel);
+        List<CourseGridViewModel> GetAll();
     }
 }

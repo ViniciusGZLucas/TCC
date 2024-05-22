@@ -24,5 +24,14 @@ namespace TCC.Controllers
 
             return Ok(dto.Id);
         }
+
+        [Authorize]
+        [HttpGet("GetAll")]
+        public IActionResult GetAll()
+        {
+            var listViewModel = _courseBusinessRule.GetAll();
+
+            return Ok(listViewModel);
+        }
     }
 }

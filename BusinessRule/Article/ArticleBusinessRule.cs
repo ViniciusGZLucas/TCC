@@ -105,6 +105,8 @@ namespace BusinessRule
                 Description = x.Description
             }).ToList();
 
+            var listArticleDocument = _articleDocumentRepository.GetByArticleId(article.Id);
+
             var articleDTO = new ArticleDeliveryDateViewModel
             {
                 Id = article.Id,
@@ -118,7 +120,8 @@ namespace BusinessRule
                 AdvisorId = article.AdvisorId,
                 CoAdvisorId = article.CoAdvisorId,
                 IsAccepted = article.IsAccepted,
-                DeliveryDates = deliveryDates
+                DeliveryDates = deliveryDates,
+                ListArticleDocument = listArticleDocument
             };
 
             return articleDTO;
@@ -146,6 +149,8 @@ namespace BusinessRule
                 Description = x.Description
             }).ToList();
 
+            var listArticleDocument = _articleDocumentRepository.GetByArticleId(article.Id);
+
             var articleDTO = new ArticleDeliveryDateViewModel
             {
                 Id = article.Id,
@@ -159,7 +164,8 @@ namespace BusinessRule
                 AdvisorId = article.AdvisorId,
                 CoAdvisorId = article.CoAdvisorId,
                 IsAccepted = article.IsAccepted,
-                DeliveryDates = deliveryDates
+                DeliveryDates = deliveryDates,
+                ListArticleDocument = listArticleDocument
             };
 
             return articleDTO;

@@ -28,5 +28,10 @@ namespace BusinessRule
         public override void ViewModelValidationProcess(InputCreateCourseViewModel viewModel)
         {
         }
+
+        public List<CourseGridViewModel> GetAll()
+        {
+            return _repository.GetAll();
+        }
     }
 }

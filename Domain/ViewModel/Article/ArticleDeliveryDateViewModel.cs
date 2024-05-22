@@ -15,5 +15,6 @@
         public long? CoAdvisorId { get; set; }
         public bool? IsAccepted { get; set; }
         public IList<ArticleScheduleViewModel>? DeliveryDates { get; set; }
+        public IList<ArticleDocumentViewModel>? ListArticleDocument { get; set; }
     }
 }

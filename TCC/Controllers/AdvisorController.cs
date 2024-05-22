@@ -33,5 +33,14 @@ namespace TCC.Controllers
 
             return Ok();
         }
+
+        [Authorize]
+        [HttpGet("GetAll")]
+        public IActionResult GetAll()
+        {
+            var listViewModel = _advisorBusinessRule.GetAll();
+
+            return Ok(listViewModel);
+        }
     }
 }
