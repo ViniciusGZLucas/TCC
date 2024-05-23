@@ -20,6 +20,7 @@ namespace Infrastructure.Repository
                     join j in _context.Set<Course>() on i.CourseId equals j.Id
                     select new AdvisorGridViewModel
                     {
+                        Id = i.Id,
                         Name = i.Name,
                         CurriculumLink = i.CurriculumLink,
                         CourseName = j.Name
