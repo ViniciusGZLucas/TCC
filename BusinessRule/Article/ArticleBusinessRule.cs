@@ -204,5 +204,15 @@ namespace BusinessRule
 
             _unitOfWork.Commit();
         }
+
+        public string? GetDocument(DataSession dataSession, long documentId)
+        {
+            if (!dataSession.IsAdmin)
+                throw new Exception("Apenas Administradores podem usar esse metodo");
+
+            var article = _articleDocumentRepository.FindById(documentId);
+
+            return article?.Base64File;
+        }
     }
 }

@@ -13,5 +13,6 @@ namespace Domain.Interface.BusinessRule
         void LinkDocument(DataSession dataSession, InputLinkArticleDocumentViewModel viewModel);
         void Delete(DataSession dataSession, long id);
         void Accept(DataSession dataSession, long id);
+        string? GetDocument(DataSession dataSession, long documentId);
     }
 }

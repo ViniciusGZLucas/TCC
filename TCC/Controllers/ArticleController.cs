@@ -78,5 +78,12 @@ namespace TCC.Controllers
 
             return Ok();
         }
+
+        [Authorize]
+        [HttpPost("GetDocument/{articleId}")]
+        public IActionResult GetDocument([FromRoute] long documentId)
+        {
+            return Ok(_articleBusinessRule.GetDocument(_dataSession, documentId));
+        }
     }
 }
