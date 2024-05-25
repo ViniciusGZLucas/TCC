@@ -46,5 +46,21 @@ namespace BusinessRule
 
             return new UserTokenViewModel(token, populateToken);
         }
+
+        public UserViewModel GetLoggedUser(DataSession dataSession)
+        {
+            var entry = _repository.FindById(dataSession.Id);
+
+            return new UserViewModel
+            {
+                Id = entry.Id,
+                CreationDate = entry.CreationDate,
+                CreationUserId = entry.CreationUserId,
+                ChangeDate = entry.ChangeDate,
+                ChangeUserId = entry.ChangeUserId,
+                Name = entry.Name,
+                Email = entry.Email
+            };
+        }
     }
 }

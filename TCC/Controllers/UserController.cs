@@ -33,5 +33,14 @@ namespace TCC.Controllers
 
             return Ok(dto);
         }
+
+        [Authorize]
+        [HttpPost("GetLoggedUser")]
+        public IActionResult GetLoggedUser()
+        {
+            var dto = _userBusinessRule.GetLoggedUser(_dataSession);
+
+            return Ok(dto);
+        }
     }
 }
