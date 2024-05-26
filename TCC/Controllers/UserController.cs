@@ -35,7 +35,7 @@ namespace TCC.Controllers
         }
 
         [Authorize]
-        [HttpPost("GetLoggedUser")]
+        [HttpGet("GetLoggedUser")]
         public IActionResult GetLoggedUser()
         {
             var dto = _userBusinessRule.GetLoggedUser(_dataSession);
