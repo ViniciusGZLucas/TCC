@@ -6,13 +6,14 @@ namespace Domain.Entry
     {
         public User() { }
 
-        public User(string name, string email, string privateEmail, string password, DateTime bindingDate)
+        public User(string name, string email, string privateEmail, string password, DateTime bindingDate, string rA)
         {
             Name = name;
             Email = email;
             PrivateEmail = privateEmail;
             Password = password;
             BindingDate = bindingDate;
+            RA = rA;
         }
 
         public string Name { get; set; }
@@ -20,6 +21,7 @@ namespace Domain.Entry
         public string PrivateEmail { get; set; }
         public string Password { get; set; }
         public DateTime BindingDate { get; set; }
+        public string RA { get; set; }
 
         #region NotMapped
         [NotMapped]

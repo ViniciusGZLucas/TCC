@@ -8,5 +8,6 @@
         public static string Name => "Name";
         public static string Email => "Email";
         public static string PrivateEmail => "PrivateEmail";
+        public static string RA => "RA";
     }
 }

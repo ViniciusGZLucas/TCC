@@ -22,6 +22,7 @@ namespace CrossCutting.Services.TokenService
                     new Claim(TokenClaim.Email, populateToken.Email),
                     new Claim(TokenClaim.PrivateEmail, populateToken.PrivateEmail),
                     new Claim(TokenClaim.IsAdmin, populateToken.Admin.ToString()),
+                    new Claim(TokenClaim.RA, populateToken.RA)
                 }),
                 Expires = DateTime.UtcNow.AddDays(1),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)

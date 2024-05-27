@@ -40,7 +40,7 @@ namespace BusinessRule
 
             var roles = _repository.GetRolesByUser(user.Id);
 
-            var populateToken = new PopulateToken(user.Id, user.Name, user.Email, user.PrivateEmail, roles?.Any(x => x.IsAdmin) ?? false, roles?.Select(x => x.Name).ToList());
+            var populateToken = new PopulateToken(user.Id, user.Name, user.Email, user.PrivateEmail, roles?.Any(x => x.IsAdmin) ?? false, roles?.Select(x => x.Name).ToList(), user.RA);
 
             var token = TokenService.GenerateToken(populateToken);
 
@@ -59,7 +59,8 @@ namespace BusinessRule
                 ChangeDate = entry.ChangeDate,
                 ChangeUserId = entry.ChangeUserId,
                 Name = entry.Name,
-                Email = entry.Email
+                Email = entry.Email,
+                RA = entry.RA
             };
         }
     }

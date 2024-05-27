@@ -6,13 +6,14 @@ namespace Domain.DTO
     {
         public UserDTO() { }
 
-        public UserDTO(string name, string email, string privateEmail, string password, DateTime bindingDate)
+        public UserDTO(string name, string email, string privateEmail, string password, DateTime bindingDate, string rA)
         {
             Name = name;
             Email = email;
             PrivateEmail = privateEmail;
             Password = password;
             BindingDate = bindingDate;
+            RA = rA;
         }
 
         public string Name { get; private set; }
@@ -20,6 +21,7 @@ namespace Domain.DTO
         public string PrivateEmail { get; private set; }
         public string Password { get; private set; }
         public DateTime BindingDate { get; private set; }
+        public string RA { get; private set; }
 
         #region VirtualProperties
         #region External
